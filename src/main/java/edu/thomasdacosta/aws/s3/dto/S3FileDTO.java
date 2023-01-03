@@ -2,7 +2,7 @@ package edu.thomasdacosta.aws.s3.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-public class S3File {
+public class S3FileDTO {
 
     private String fileName;
     private String content;
@@ -24,8 +24,8 @@ public class S3File {
         this.content = content;
     }
 
-    public static S3File getInstance(String fileName, String content) {
-        S3File s3File = new S3File();
+    public static S3FileDTO getInstance(String fileName, String content) {
+        S3FileDTO s3File = new S3FileDTO();
         s3File.setFileName(fileName);
         s3File.setContent(content);
         return s3File;

@@ -51,7 +51,6 @@
             <version>2.31.0</version>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>jakarta.xml.bind</groupId>
             <artifactId>jakarta.xml.bind-api</artifactId>
@@ -63,7 +62,6 @@
             <version>2.3.3</version>
             <scope>runtime</scope>
         </dependency>
-
         <dependency>
             <groupId>io.awspring.cloud</groupId>
             <artifactId>spring-cloud-starter-aws</artifactId>

@@ -1,6 +1,6 @@
 package edu.thomasdacosta.aws.s3.controller;
 
-import edu.thomasdacosta.aws.s3.dto.S3File;
+import edu.thomasdacosta.aws.s3.dto.S3FileDTO;
 import edu.thomasdacosta.aws.s3.service.S3FileService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class S3Controller {
     private S3FileService fileService;
 
     @PostMapping("/s3/files")
-    public ResponseEntity<S3File> createFile() {
+    public ResponseEntity<S3FileDTO> createFile() {
         Path tempFile;
         try {
             tempFile = Files.createTempFile("prefixo-", ".txt");
@@ -39,25 +39,25 @@ public class S3Controller {
             fileService.saveFile(Files.newInputStream(tempFile), tempFile.toFile().getName());
         } catch (Exception ex) {
             log.error(ex.getMessage(), ex);
-            return new ResponseEntity<>(S3File.getInstance(ex.getMessage(), null), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(S3FileDTO.getInstance(ex.getMessage(), null), HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        return ResponseEntity.ok(S3File.getInstance(tempFile.toFile().getName(), null));
+        return ResponseEntity.ok(S3FileDTO.getInstance(tempFile.toFile().getName(), null));
     }
 
     @GetMapping("/s3/files")
-    public ResponseEntity<List<S3File>> listFiles(@RequestParam("fileName") String fileName) {
-        List<S3File> s3Files = new ArrayList<>();
+    public ResponseEntity<List<S3FileDTO>> listFiles(@RequestParam("fileName") String fileName) {
+        List<S3FileDTO> s3Files = new ArrayList<>();
         try {
             List<Resource> resources = fileService.searchFile(fileName, false);
 
             if (resources.isEmpty()) {
-                s3Files.add(S3File.getInstance(FILE_NOT_EXISTS, null));
+                s3Files.add(S3FileDTO.getInstance(FILE_NOT_EXISTS, null));
                 return new ResponseEntity<>(s3Files, HttpStatus.NOT_FOUND);
             }
 
             for (Resource resource : resources)
-                s3Files.add(S3File.getInstance(resource.getFilename(), null));
+                s3Files.add(S3FileDTO.getInstance(resource.getFilename(), null));
         } catch (Exception ex) {
             log.error(ex.getMessage(), ex);
             return new ResponseEntity<>(s3Files, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -67,13 +67,13 @@ public class S3Controller {
     }
 
     @GetMapping("/s3/files/{file}")
-    public ResponseEntity<S3File> contentFile(@PathVariable("file") String file) {
+    public ResponseEntity<S3FileDTO> contentFile(@PathVariable("file") String file) {
         if (fileService.isFileExists(file)) {
             List<Resource> resources = fileService.searchFile(file, true);
             Resource resource = resources.get(0);
-            return ResponseEntity.ok(S3File.getInstance(resource.getFilename(), fileService.contenteFile(resource.getFilename())));
+            return ResponseEntity.ok(S3FileDTO.getInstance(resource.getFilename(), fileService.contenteFile(resource.getFilename())));
         } else {
-            return new ResponseEntity<>(S3File.getInstance(FILE_NOT_EXISTS, null), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(S3FileDTO.getInstance(FILE_NOT_EXISTS, null), HttpStatus.NOT_FOUND);
         }
     }
 

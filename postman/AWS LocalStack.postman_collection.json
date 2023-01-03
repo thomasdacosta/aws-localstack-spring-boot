@@ -1,0 +1,130 @@
+{
+	"info": {
+		"_postman_id": "0d037373-ab31-4242-935c-64b461a7b932",
+		"name": "AWS LocalStack",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3374459"
+	},
+	"item": [
+		{
+			"name": "S3",
+			"item": [
+				{
+					"name": "Criar Arquivo",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/s3/files",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"s3",
+								"files"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar Arquivos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/s3/files?fileName=prefixo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"s3",
+								"files"
+							],
+							"query": [
+								{
+									"key": "fileName",
+									"value": "prefixo"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Conteúdo do Arquivo",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/s3/files/prefixo-12723412405596374868.txt",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"s3",
+								"files",
+								"prefixo-12723412405596374868.txt"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "SecretsManager",
+			"item": [
+				{
+					"name": "Buscar SecretsManager",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/secretsManager",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"secretsManager"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "SSM",
+			"item": [
+				{
+					"name": "Buscar ParameterStore",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/parameterStore",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"parameterStore"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

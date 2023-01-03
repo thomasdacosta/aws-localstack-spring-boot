@@ -26,10 +26,10 @@ spring:
       on-profile: localstack
 aws:
   secretsmanager:
-    enabled: false
+    enabled: true
     endpoint: http://localhost:4566
   paramstore:
-    enabled: false
+    enabled: true
     endpoint: http://localhost:4566
 cloud:
   aws:
