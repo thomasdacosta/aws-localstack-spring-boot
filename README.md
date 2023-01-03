@@ -1,0 +1,1 @@
+# aws-localstack-spring-boot
